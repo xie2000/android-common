@@ -1,7 +1,6 @@
 package xie.com.androidcommon.util;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -9,6 +8,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 
@@ -17,34 +17,17 @@ import xie.com.androidcommon.MyApplication;
 /**
  * 设备信息
  */
-public enum DeviceInfoUtil {
-
-    SINGLETON_INSTANCE;
-
-    public String mManufacturer = "";
-    public String mFingerPrint = "";
-    public String mModel = "";
-    public String mProduct = "";
-    public String mDevice = "";
-    public String mBoard = "";
-    public String mBrand = "";
-    public String mSDKVer = "";
-
-
-    public static DeviceInfoUtil getInstance() {
-        return SINGLETON_INSTANCE;
-    }
-
-    DeviceInfoUtil() {
-        mModel = android.os.Build.MODEL;
-        mProduct = android.os.Build.PRODUCT;
-        mDevice = android.os.Build.DEVICE;
-        mBoard = android.os.Build.BOARD;
-        mBrand = android.os.Build.BRAND;
-        mSDKVer = String.valueOf(android.os.Build.VERSION.SDK_INT);
-        mManufacturer = android.os.Build.MANUFACTURER;
-        mFingerPrint = android.os.Build.FINGERPRINT;
-    }
+public class DeviceInfoUtil {
+//    DeviceInfoUtil() {
+//        mModel = android.os.Build.MODEL;
+//        mProduct = android.os.Build.PRODUCT;
+//        mDevice = android.os.Build.DEVICE;
+//        mBoard = android.os.Build.BOARD;
+//        mBrand = android.os.Build.BRAND;
+//        mSDKVer = String.valueOf(android.os.Build.VERSION.SDK_INT);
+//        mManufacturer = android.os.Build.MANUFACTURER;
+//        mFingerPrint = android.os.Build.FINGERPRINT;
+//    }
 
     /**
      * 屏幕宽(px)
@@ -207,18 +190,20 @@ public enum DeviceInfoUtil {
      * @return
      */
     public static String getIMEI() {
+        //如果Android Pad没有IMEI,用此方法获取设备ANDROID_ID：
+        //String android_id = Settings.Secure.getString(MyApplication.getInstance().getContentResolver(), Settings.Secure.ANDROID_ID);
         TelephonyManager tm = (TelephonyManager) MyApplication.getInstance()
                 .getSystemService(Context.TELEPHONY_SERVICE);
+        return tm.getDeviceId();
+    }
 
-        if (tm == null) {
-            return "000000000000000";
-        }
-
-        String imei = tm.getDeviceId();
-        if (imei == null || imei.length() <= 0) {
-            return "000000000000000";
-        }
-
-        return imei;
+    /**
+     * 获取运营商sim卡imsi号
+     * @return
+     */
+    public static String getIMSI(){
+        TelephonyManager tm = (TelephonyManager) MyApplication.getInstance()
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        return tm.getSubscriberId();
     }
 }
