@@ -1,7 +1,11 @@
 package xie.com.androidcommon.util;
 
+import android.app.Application;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 
 import xie.com.androidcommon.MyApplication;
 
@@ -84,4 +88,32 @@ public class ResUtil {
         return MyApplication.getInstance().getResources();
     }
 
+
+    /**
+     * 获取meta的数值
+     *
+     * @param metaKey
+     * @return
+     */
+    public static String getMetaValue(String metaKey) {
+        Bundle metaData = null;
+        String apiKey = null;
+        if (metaKey == null) {
+            return null;
+        }
+
+        try {
+
+            ApplicationInfo ai = MyApplication.getInstance().getPackageManager().getApplicationInfo(MyApplication.getInstance().getPackageName(), PackageManager.GET_META_DATA);
+            if (null != ai) {
+                metaData = ai.metaData;
+            }
+            if (null != metaData) {
+                apiKey = metaData.getString(metaKey);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+        }
+
+        return apiKey;
+    }
 }
