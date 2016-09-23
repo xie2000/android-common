@@ -8,7 +8,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
-import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 
@@ -31,10 +30,11 @@ public class DeviceInfoUtil {
 
     /**
      * 屏幕宽(px)
+     *
      * @param activity
      * @return
      */
-    public static int getScreenWidth(Activity activity){
+    public static int getScreenWidth(Activity activity) {
         DisplayMetrics mDisplayMetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(mDisplayMetrics);
         return mDisplayMetrics.widthPixels;
@@ -42,10 +42,11 @@ public class DeviceInfoUtil {
 
     /**
      * 屏幕高(px)
+     *
      * @param activity
      * @return
      */
-    public static int getScreenHeight(Activity activity){
+    public static int getScreenHeight(Activity activity) {
         DisplayMetrics mDisplayMetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(mDisplayMetrics);
         return mDisplayMetrics.heightPixels;
@@ -54,7 +55,7 @@ public class DeviceInfoUtil {
     /**
      * 获取状态栏高度
      */
-    public static int getStatusBar(){
+    public static int getStatusBar() {
         // 方法1：
         // Class<?> c = null;
         // Object obj = null;
@@ -81,7 +82,7 @@ public class DeviceInfoUtil {
 
         // 方法2
         int result = 0;
-        int resourceId =  ResUtil.getRes().getIdentifier("status_bar_height", "dimen", "android");
+        int resourceId = ResUtil.getRes().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             result = ResUtil.getResDimensionPixelSize(resourceId);
         }
@@ -175,6 +176,7 @@ public class DeviceInfoUtil {
     /**
      * 获取mac地址
      * 权限：android.permission.ACCESS_WIFI_STATE
+     *
      * @param context
      * @return
      */
@@ -185,25 +187,53 @@ public class DeviceInfoUtil {
     }
 
     /**
+     * 获取TelephonyManager
+     * @return
+     */
+    public static TelephonyManager getTelephonyManager() {
+        return (TelephonyManager) MyApplication.getInstance()
+                .getSystemService(Context.TELEPHONY_SERVICE);
+    }
+
+    /**
      * IMEI
      * 权限：android.permission.READ_PHONE_STATE
+     *
      * @return
      */
     public static String getIMEI() {
         //如果Android Pad没有IMEI,用此方法获取设备ANDROID_ID：
         //String android_id = Settings.Secure.getString(MyApplication.getInstance().getContentResolver(), Settings.Secure.ANDROID_ID);
-        TelephonyManager tm = (TelephonyManager) MyApplication.getInstance()
-                .getSystemService(Context.TELEPHONY_SERVICE);
-        return tm.getDeviceId();
+        return getTelephonyManager().getDeviceId();
     }
 
     /**
      * 获取运营商sim卡imsi号
+     *
      * @return
      */
-    public static String getIMSI(){
-        TelephonyManager tm = (TelephonyManager) MyApplication.getInstance()
-                .getSystemService(Context.TELEPHONY_SERVICE);
-        return tm.getSubscriberId();
+    public static String getIMSI() {
+        return getTelephonyManager().getSubscriberId();
+    }
+
+    /**
+     * 获取SIM卡类型
+     *
+     * @return -1:失败，1：移动，2：联通，3：电信
+     */
+    public static boolean isChinaMobileSIM() {
+        String imsi = getTelephonyManager().getSubscriberId();
+        int res=-1;
+        if(imsi != null) {
+            if(imsi.startsWith("46000") || imsi.startsWith("46002")){
+               res=1;
+            }else if(imsi.startsWith("46001")){
+                res=2;
+            }else if(imsi.startsWith("46003")){
+                res=3;
+            }
+        }
+
+        return res;
     }
 }

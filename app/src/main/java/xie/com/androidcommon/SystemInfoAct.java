@@ -29,6 +29,7 @@ public class SystemInfoAct extends AppCompatActivity {
         sb.append("状态栏高度："+DeviceInfoUtil.getStatusBar()+"\n");
         sb.append("手机型号："+DeviceInfoUtil.getHandsetType()+",SDK版本："+DeviceInfoUtil.getPhoneSDKVersionChar()+"("+DeviceInfoUtil.getPhoneSdkVersion()+"),imei:"+DeviceInfoUtil.getIMEI()+"\n");
 
+
         infoView.setText(sb.toString());
     }
 }
