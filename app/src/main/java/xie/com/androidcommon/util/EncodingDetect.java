@@ -9,7 +9,7 @@ import com.app.hero.context.HeroApplication;
 import xie.com.androidcommon.MyApplication;
 
 /**
- * 读取TXT文件编辑格式
+ * 读取TXT文件编码格式
  * 
  * @author xiechengfa
  * 
