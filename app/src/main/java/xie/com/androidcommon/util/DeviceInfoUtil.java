@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Configuration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -221,9 +222,9 @@ public class DeviceInfoUtil {
      *
      * @return -1:失败，1：移动，2：联通，3：电信
      */
-    public static boolean isChinaMobileSIM() {
-        String imsi = getTelephonyManager().getSubscriberId();
+    public static int isChinaMobileSIM() {
         int res=-1;
+        String imsi = getTelephonyManager().getSubscriberId();
         if(imsi != null) {
             if(imsi.startsWith("46000") || imsi.startsWith("46002")){
                res=1;
@@ -235,5 +236,14 @@ public class DeviceInfoUtil {
         }
 
         return res;
+    }
+
+    /**
+     * 判断是否是平板（官方用法,一般是7寸以上是平板）
+     * @param context
+     * @return
+     */
+    public static boolean isTablet(Context context) {
+        return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 }

@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import xie.com.androidcommon.util.DeviceInfoUtil;
 import xie.com.androidcommon.util.Utils;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         listView.setOnItemClickListener(this);
         ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_activated_1,android.R.id.text1,list);
         listView.setAdapter(adapter);
+
+        System.out.println("*****************xie res:"+ DeviceInfoUtil.isTablet(this));
     }
 
     private void initData(){
