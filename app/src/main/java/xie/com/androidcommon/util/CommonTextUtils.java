@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * 文本处理工具
  * Created by xiechengfa on 2016/9/23.
  */
-public class TextUtil {
+public class CommonTextUtils {
     /**
      * 检测字符串中是否包含汉字
      * @param sequence

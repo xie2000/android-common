@@ -17,7 +17,7 @@ import xie.com.androidcommon.MyApplication;
 /**
  * 设备信息
  */
-public class DeviceInfoUtil {
+public class DeviceInfoUtils {
 //    DeviceInfoUtil() {
 //        mModel = android.os.Build.MODEL;
 //        mProduct = android.os.Build.PRODUCT;
@@ -83,9 +83,9 @@ public class DeviceInfoUtil {
 
         // 方法2
         int result = 0;
-        int resourceId = ResUtil.getRes().getIdentifier("status_bar_height", "dimen", "android");
+        int resourceId = ResUtils.getRes().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
-            result = ResUtil.getResDimensionPixelSize(resourceId);
+            result = ResUtils.getResDimensionPixelSize(resourceId);
         }
         return result;
     }

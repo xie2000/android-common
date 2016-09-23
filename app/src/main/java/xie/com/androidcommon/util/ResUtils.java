@@ -13,7 +13,7 @@ import xie.com.androidcommon.MyApplication;
  * Created by xiechengfa on 2016/9/22.
  * 读取资源文件定义的数据
  */
-public class ResUtil {
+public class ResUtils {
     /**
      * 获取资源文件里的dimension(像素,效果同getResDimensionPixelSize（）)
      *

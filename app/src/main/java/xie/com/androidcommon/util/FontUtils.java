@@ -10,7 +10,7 @@ import xie.com.androidcommon.MyApplication;
  * Created by xiechengfa on 2016/9/23
  * 字体处理工具
  */
-public class FontUtil {
+public class FontUtils {
     /**
      * 计算字宽
      * @param text
