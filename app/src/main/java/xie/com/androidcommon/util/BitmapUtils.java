@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
+import android.util.Size;
 import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
@@ -498,18 +499,6 @@ public class BitmapUtils {
 
 	/**
 	 * 保存图片
-	 */
-	public static void saveDrawableOfJPG(String path, Drawable drawable) {
-		if (drawable == null || path == null) {
-			return;
-		}
-
-		Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-		saveBitmapOfJPG(path, bitmap);
-	}
-
-	/**
-	 * 保存图片
 	 * 
 	 * @param path
 	 *            图片path
@@ -582,6 +571,17 @@ public class BitmapUtils {
 	/**
 	 * 保存图片
 	 */
+	public static void saveDrawableOfJPG(String path, Drawable drawable) {
+		if (drawable == null || path == null) {
+			return;
+		}
+
+		Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+		saveBitmapOfJPG(path, bitmap);
+	}
+	/**
+	 * 保存图片
+	 */
 	public static void saveBitmapOfJPG100(String path, Bitmap bitmap) {
 		if (bitmap == null || bitmap.isRecycled() || path == null) {
 			return;
@@ -613,12 +613,12 @@ public class BitmapUtils {
 	}
 
 	/**
-	 * bitmap转换byteArray
+	 * bitmap转换byte
 	 * 
 	 * @param bmp
 	 * @return
 	 */
-	public static byte[] bitmapToByteArrayOfPNG(final Bitmap bmp) {
+	public static byte[] readBitmapToByte(final Bitmap bmp) {
 		if (bmp == null) {
 			return null;
 		}
@@ -718,31 +718,6 @@ public class BitmapUtils {
 		return opts.outHeight;
 	}
 
-	// private static Bitmap toRoundCorner(Bitmap bitmap) {
-	// if (bitmap == null) {
-	// return null;
-	// }
-	//
-	// Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
-	// bitmap.getHeight(), Config.ARGB_8888);
-	// Canvas canvas = new Canvas(output);
-	//
-	// final Paint paint = new Paint();
-	// final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-	// final RectF rectF = new RectF(rect);
-	// final float roundPx = 8;
-	//
-	// paint.setAntiAlias(true);
-	// canvas.drawARGB(0, 0, 0, 0);
-	// // paint.setColor(color);
-	// canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-	//
-	// paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
-	// canvas.drawBitmap(bitmap, rect, rect, paint);
-	//
-	// return output;
-	// }
-
 	/**
 	 * 更改drawable大小(比例不变)
 	 * 
@@ -828,97 +803,6 @@ public class BitmapUtils {
 		BitmapDrawable bd = (BitmapDrawable) drawable;
 		Bitmap bm = bd.getBitmap();
 		return bm;
-	}
-
-	/**
-	 * 创建指定象素的drawable图片（比例不变）
-	 */
-	public static Drawable createDrawableOfFixedSize(String path,
-			int FixedWidth, int FixedHeight, boolean isSaveFixSizeDrawble) {
-		if (path == null) {
-			return null;
-		}
-
-		if (FixedWidth <= 0) {
-			return null;
-		}
-
-		// // 高度像素超过了最大值
-		// if (FixedHeight >= ALBUM_MAX_HEIGHT_PX) {
-		// FixedHeight = FixedWidth;
-		// }
-
-		BitmapFactory.Options opts = new BitmapFactory.Options();
-		opts.inJustDecodeBounds = true;// 设置成了true,不占用内存，只获取bitmap宽高
-		BitmapFactory.decodeFile(path, opts);
-
-		if (opts.outWidth * opts.outHeight <= 0) {
-			return null;
-		}
-
-		opts.inSampleSize = computeSampleSize(opts, -1, FixedWidth
-				* FixedHeight);
-
-		// 是否要保存缩放后的图片
-		if (isSaveFixSizeDrawble && opts.inSampleSize <= 1) {
-			isSaveFixSizeDrawble = false;
-		}
-
-		System.out.println("*************optsSize:" + opts.inSampleSize + ",w:"
-				+ FixedWidth + ",h:" + FixedHeight);
-
-		opts.inJustDecodeBounds = false;// 这里一定要将其设置回false，因为之前我们将其设置成了true
-		opts.inPurgeable = true;
-		opts.inInputShareable = true;
-		opts.inDither = false;
-		opts.inPurgeable = true;
-		FileInputStream is = null;
-		Bitmap bitmap = null;
-		try {
-			is = new FileInputStream(path);
-			bitmap = BitmapFactory.decodeFileDescriptor(is.getFD(), null, opts);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (is != null) {
-					is.close();
-					is = null;
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		if (bitmap == null) {
-			return null;
-		}
-		float width = bitmap.getWidth();
-		float height = bitmap.getHeight();
-		float myScale = FixedWidth / width;
-		float newHeight = height * myScale;
-
-		if (newHeight > FixedHeight) {
-			myScale = FixedHeight / height;
-			bitmap = Bitmap.createScaledBitmap(bitmap, (int) (width * myScale),
-					FixedHeight, true);
-		} else {
-			bitmap = Bitmap.createScaledBitmap(bitmap, FixedWidth,
-					(int) (height * myScale), true);
-		}
-		Drawable drawable = new BitmapDrawable(MyApplication.getInstance()
-				.getResources(), bitmap);
-
-		// 是否要保存缩放后的图片
-		if (isSaveFixSizeDrawble) {
-			// 删除原图
-			FileUtils.deleteFile(path);
-			// 保存新图
-			BitmapUtils.saveBitmapOfJPG(path,
-					((BitmapDrawable) drawable).getBitmap());
-		}
-
-		return drawable;
 	}
 
 	/**
@@ -1178,5 +1062,4 @@ public class BitmapUtils {
 		}
 		return inSampleSize;
 	}
-
 }

@@ -28,14 +28,6 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.text.TextUtils;
 
-import com.app.hero.context.HeroApplication;
-import com.app.hero.manager.RecordManager;
-import com.app.hero.model.RecordData;
-import com.app.hero.model.RecordScoreInfo;
-import com.app.hero.model.RecrodToneInfo;
-import com.app.hero.ui.R;
-import com.mir.kcrypt.KCryptor;
-
 import org.w3c.dom.Text;
 
 import xie.com.androidcommon.MyApplication;
@@ -55,8 +47,6 @@ public class FileUtils {
 
 	/**
 	 * 在SD卡上创建文件
-	 * 
-	 * @param fileName
 	 * @return
 	 * @throws IOException
 	 */
