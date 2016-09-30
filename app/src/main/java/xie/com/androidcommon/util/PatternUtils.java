@@ -1,7 +1,5 @@
 package xie.com.androidcommon.util;
 
-import java.util.regex.Pattern;
-
 /**
  * 正则表达式工具类
  */
@@ -25,7 +23,7 @@ public class PatternUtils {
 //
 //	// 微博内容中的url正则表达式
 //	public final static Pattern URL_PATTERN = Pattern.compile(URL);
-	
+
 	// 正则判断是否为邮箱
 	public static boolean isEmail(String s) {
 		String regString = "[A-Z0-9a-z._]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,5}";

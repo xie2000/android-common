@@ -10,9 +10,6 @@ import java.nio.charset.Charset;
 
 /**
  * 整型与字节数组之间的转换工具
- * 
- * @author chris
- * 
  */
 public class ByteConvert {
 

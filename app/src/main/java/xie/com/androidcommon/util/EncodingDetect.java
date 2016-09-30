@@ -4,8 +4,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 
-import com.app.hero.context.HeroApplication;
-
 import xie.com.androidcommon.MyApplication;
 
 /**

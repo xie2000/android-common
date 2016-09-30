@@ -9,8 +9,6 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import xie.com.androidcommon.util.DeviceInfoUtils;
-
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     private final String ITEM_SYSTEMINFO = "系统信息(分辨率、SDK版本、IMEI号等)";
     private ArrayList<String> list = null;
@@ -25,8 +23,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         listView.setOnItemClickListener(this);
         ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_activated_1,android.R.id.text1,list);
         listView.setAdapter(adapter);
-
-        System.out.println("*****************xie res:"+ DeviceInfoUtils.isTablet(this));
     }
 
     private void initData(){
