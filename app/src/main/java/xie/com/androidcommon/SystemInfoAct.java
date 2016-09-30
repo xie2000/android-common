@@ -4,16 +4,19 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import xie.com.androidcommon.util.DeviceInfoUtils;
+import xie.com.androidcommon.util.KeyguardLock;
 
 /**
  * Created by xiechengfa on 2016/9/22.
  * 系统信息(分辨率、SDK版本、IMEI号等)
  */
 public class SystemInfoAct extends AppCompatActivity {
-
+    private KeyguardLock lock;
     public static void startAcy(Activity activity){
         activity.startActivity(new Intent(activity,SystemInfoAct.class));
     }
@@ -31,5 +34,21 @@ public class SystemInfoAct extends AppCompatActivity {
 
 
         infoView.setText(sb.toString());
+
+        lock =new KeyguardLock(this,"xie");
+        Button btn1 = (Button) findViewById(R.id.btn1);
+        Button btn2 = (Button) findViewById(R.id.btn2);
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lock.reenableKeyguard();
+            }
+        });
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lock.disableKeyguard();
+            }
+        });
     }
 }
