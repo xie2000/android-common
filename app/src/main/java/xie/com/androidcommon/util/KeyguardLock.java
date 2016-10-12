@@ -21,7 +21,6 @@ public class KeyguardLock {
         keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
         //初始化键盘锁，可以锁定或解开键盘锁
         keyguardLock = keyguardManager.newKeyguardLock(tag);
-        keyguardLock.a
     }
 
     /**
