@@ -8,4 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <declare-styleable name="ExpandTextView">
+        <attr name="etv_lines" format="integer" />
+        <attr name="etv_shrinkDrawable" format="reference" />
+        <attr name="etv_expandDrawable" format="reference" />
+        <attr name="etv_textStateColor" format="color" />
+        <attr name="etv_textStateSize" format="dimension" />
+        <attr name="etv_textContentColor" format="color" />
+        <attr name="etv_textContentSize" format="dimension" />
+        <attr name="etv_textShrink" format="string" />
+        <attr name="etv_textExpand" format="string" />
+    </declare-styleable>
+
 </resources>
