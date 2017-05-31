@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import xie.com.androidcommon.base.BaseActivity;
 import xie.com.androidcommon.customview.CustomViewsAct;
 import xie.com.androidcommon.systeminfo.SystemInfoAct;
+import xie.com.androidcommon.utils.XPreferencesUtils;
+import xie.com.androidcommon.utils.XPrintUtils;
 
 public class MainActivity extends BaseActivity implements AdapterView.OnItemClickListener{
     private final String ITEM_SYSTEMINFO = "系统信息(分辨率、SDK版本、IMEI号等)";
@@ -27,6 +29,10 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         list = new ArrayList<>();
         list.add(ITEM_SYSTEMINFO);
         list.add(ITEM_CUSTOMVIEWS);
+
+        XPreferencesUtils.put("xie",1234);
+
+        XPrintUtils.d("*********************xie get:"+XPreferencesUtils.get("xie",0));
     }
 
     @Override
