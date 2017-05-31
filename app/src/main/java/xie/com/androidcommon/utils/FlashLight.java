@@ -1,4 +1,4 @@
-package xie.com.androidcommon.util;
+package xie.com.androidcommon.utils;
 
 import android.hardware.Camera;
 import android.os.Build;

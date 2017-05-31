@@ -1,4 +1,4 @@
-package xie.com.androidcommon.util;
+package xie.com.androidcommon.utils;
 
 import android.app.KeyguardManager;
 import android.content.Context;

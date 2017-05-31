@@ -1,4 +1,4 @@
-package xie.com.androidcommon.util;
+package xie.com.androidcommon.utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;

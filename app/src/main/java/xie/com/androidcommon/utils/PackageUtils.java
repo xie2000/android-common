@@ -1,4 +1,4 @@
-package xie.com.androidcommon.util;
+package xie.com.androidcommon.utils;
 
 import android.app.ActivityManager;
 import android.content.ComponentName;
@@ -8,14 +8,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.text.TextUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.lang.reflect.Method;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
@@ -26,32 +23,9 @@ import xie.com.androidcommon.MyApplication;
 
 /**
  * Created by xiechengfa on 2016/9/22.
- * 工具类
+ * 应用包工具类
  */
-public class Utils {
-    /**
-     * 判断当前进程是否存在
-     *
-     * @param pkg     进程包名
-     * @param context 上下文实例
-     */
-    public static boolean isProcessExist(String pkg, Context context) {
-        boolean isExist = false;
-        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        // 获取系统中所有正在运行的进程
-        List<ActivityManager.RunningAppProcessInfo> appProcessInfos = activityManager.getRunningAppProcesses();
-        // 获取当前activity所在的进程
-        // 对系统中所有正在运行的进程进行迭代，如果进程名不是当前进程，则Kill掉
-        for (ActivityManager.RunningAppProcessInfo appProcessInfo : appProcessInfos) {
-            String processName = appProcessInfo.processName;
-            if (processName.equals(pkg)) {
-                isExist = true;
-                break;
-            }
-        }
-        return isExist;
-    }
-
+public class PackageUtils {
     /**
      * 检查指定包是否已安装
      *
@@ -79,14 +53,58 @@ public class Utils {
      * 安装APk
      */
     public static void installApk(String path) {
-        File file = new File(path);
         Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setAction(Intent.ACTION_VIEW);
-        String type = "application/vnd.android.package-archive";
         // 设置数据类型
-        intent.setDataAndType(Uri.fromFile(file), type);
+        intent.setDataAndType(Uri.fromFile(new File(path)), "application/vnd.android.package-archive");
         MyApplication.getInstance().startActivity(intent);
+    }
+
+    /**
+     * 判断某个服务是否正在运行的方法
+     *
+     * @param mContext
+     * @param serviceName 是包名+服务的类名（例如：net.loonggg.testbackstage.TestService）
+     * @return true代表正在运行，false代表服务没有正在运行
+     */
+    public static boolean checkIsServiceWork(Context mContext, String serviceName) {
+        boolean isWork = false;
+        ActivityManager myAM = (ActivityManager) mContext.getApplicationContext()
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningServiceInfo> myList = myAM.getRunningServices(40);
+        if (myList.size() <= 0) {
+            return false;
+        }
+        for (int i = 0; i < myList.size(); i++) {
+            if (myList.get(i).service.getClassName().toString().equals(serviceName)) {
+                isWork = true;
+                break;
+            }
+        }
+        return isWork;
+    }
+
+    /**
+     * 判断当前进程是否存在
+     *
+     * @param pkg     进程包名
+     * @param context 上下文实例
+     */
+    public static boolean isProcessExist(String pkg, Context context) {
+        boolean isExist = false;
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        // 获取系统中所有正在运行的进程
+        List<ActivityManager.RunningAppProcessInfo> appProcessInfos = activityManager.getRunningAppProcesses();
+        // 获取当前activity所在的进程
+        // 对系统中所有正在运行的进程进行迭代，如果进程名不是当前进程，则Kill掉
+        for (ActivityManager.RunningAppProcessInfo appProcessInfo : appProcessInfos) {
+            if (appProcessInfo.processName.equals(pkg)) {
+                isExist = true;
+                break;
+            }
+        }
+        return isExist;
     }
 
     /**
@@ -168,94 +186,45 @@ public class Utils {
         return result;
     }
 
-    /**
-     * 收起状态栏
-     *
-     * @param ctx
-     */
-    public static void collapseStatusBar(Context ctx) {
-        Object sbservice = ctx.getSystemService("statusbar");
-        try {
-            Class<?> statusBarManager = Class.forName("android.app.StatusBarManager");
-            Method collapse;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                collapse = statusBarManager.getMethod("collapsePanels");
-            } else {
-                collapse = statusBarManager.getMethod("collapse");
-            }
-            collapse.invoke(sbservice);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 展开状态栏
-     *
-     * @param ctx
-     */
-    public static void expandStatusBar(Context ctx) {
-        Object sbservice = ctx.getSystemService("statusbar");
-        try {
-            Class<?> statusBarManager = Class.forName("android.app.StatusBarManager");
-            Method expand;
-            if (Build.VERSION.SDK_INT >= 17) {
-                expand = statusBarManager.getMethod("expandNotificationsPanel");
-            } else {
-                expand = statusBarManager.getMethod("expand");
-            }
-            expand.invoke(sbservice);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 回收图片
-     *
-     * @param bitmap
-     */
-    public static void recycleBitmap(Bitmap bitmap) {
-        if (bitmap == null) {
-            return;
-        }
-
-        // 如果图片还未回收，先强制回收该图片
-        if (!bitmap.isRecycled()) {
-            bitmap.recycle();
-            bitmap = null;
-        }
-    }
-
-    /**
-     * 批量回收
-     *
-     * @param bitmap
-     */
-    public static void reycleBitmapArr(Bitmap[] bitmap) {
-        if (bitmap != null) {
-            for (int i = 0; i < bitmap.length; i++) {
-                recycleBitmap(bitmap[i]);
-            }
-        }
-        bitmap = null;
-    }
-
-//    保存恢复ListView当前位置
-//    private void saveCurrentPosition() {
-//        if (mListView != null) {
-//            int position = mListView.getFirstVisiblePosition();
-//            View v = mListView.getChildAt(0);
-//            int top = (v == null) ? 0 : v.getTop();
-//            //保存position和top
+//    /**
+//     * 收起状态栏
+//     *
+//     * @param ctx
+//     */
+//    public static void collapseStatusBar(Context ctx) {
+//        Object sbservice = ctx.getSystemService("statusbar");
+//        try {
+//            Class<?> statusBarManager = Class.forName("android.app.StatusBarManager");
+//            Method collapse;
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//                collapse = statusBarManager.getMethod("collapsePanels");
+//            } else {
+//                collapse = statusBarManager.getMethod("collapse");
+//            }
+//            collapse.invoke(sbservice);
+//        } catch (Exception e) {
+//            e.printStackTrace();
 //        }
 //    }
 //
-//    private void restorePosition() {
-//        if (mFolder != null && mListView != null) {
-//            int position = 0;//取出保存的数据
-//            int top = 0;//取出保存的数据
-//            mListView.setSelectionFromTop(position, top);
+//    /**
+//     * 展开状态栏
+//     *
+//     * @param ctx
+//     */
+//    public static void expandStatusBar(Context ctx) {
+//        Object sbservice = ctx.getSystemService("statusbar");
+//        try {
+//            Class<?> statusBarManager = Class.forName("android.app.StatusBarManager");
+//            Method expand;
+//            if (Build.VERSION.SDK_INT >= 17) {
+//                expand = statusBarManager.getMethod("expandNotificationsPanel");
+//            } else {
+//                expand = statusBarManager.getMethod("expand");
+//            }
+//            expand.invoke(sbservice);
+//        } catch (Exception e) {
+//            e.printStackTrace();
 //        }
 //    }
 }

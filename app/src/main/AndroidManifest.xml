@@ -24,19 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".systeminfo.SystemInfoAct"/>
         <activity android:name=".customview.CustomViewsAct"/>
-
-
-        <!-- UMeng -->
-        <meta-data
-            android:name="UMENG_CHANNEL"
-            android:value="110"/>
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="@string/umeng_key">
-        </meta-data>
     </application>
-
 </manifest>

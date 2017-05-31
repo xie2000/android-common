@@ -1,6 +1,5 @@
-package xie.com.androidcommon.util;
+package xie.com.androidcommon.utils;
 
-import android.content.Context;
 import android.text.TextPaint;
 import android.util.TypedValue;
 

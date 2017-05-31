@@ -15,3 +15,25 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-optimizationpasses 5
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-dontpreverify
+-ignorewarnings
+
+-keep public class **.R$* { public static final int *; }
+-keep public class * extends android.app.Activity
+-keep public class * extends android.support.v4.app.Fragment
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.view.View
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep class * implements android.os.Parcelable {public static final android.os.Parcelable$Creator *; }
+
+# 继承实现此接口的不予混淆
+-keep public interface xie.com.androidcommon.common.NotObfuscateInterface{public *;}
+-keep class * implements xie.com.androidcommon.common.NotObfuscateInterface{
+	<methods>;
+	<fields>;
+}

@@ -1,4 +1,4 @@
-package xie.com.androidcommon.util;
+package xie.com.androidcommon.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

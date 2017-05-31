@@ -1,9 +1,9 @@
 package xie.com.androidcommon;
 
 import android.app.Application;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
+import android.util.DisplayMetrics;
+
+import xie.com.androidcommon.utils.XCrashHandlerUtils;
 
 /**
  * @author xiechengfa
@@ -22,6 +22,11 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        XCrashHandlerUtils.getInstance().init(this);
         instance = this;
+    }
+
+    public static DisplayMetrics getDisplayMetrics() {
+        return getInstance().getResources().getDisplayMetrics();
     }
 }

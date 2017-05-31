@@ -10,51 +10,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="----可折叠伸缩的TextView默认用法----"/>
+        android:text="----可折叠伸缩的TextView用法----"/>
 
     <xie.com.androidcommon.viewUtil.ExpandTextView
         android:id="@+id/tv_expand1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:etv_lines="3"
         />
+
+    <!--<xie.com.androidcommon.viewUtil.ExpandTextView-->
+    <!--android:id="@+id/tv_expand2"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--app:etv_expandDrawable="@mipmap/icon_green_arrow_down"-->
+    <!--app:etv_lines="3"-->
+    <!--app:etv_shrinkDrawable="@mipmap/icon_green_arrow_up"-->
+    <!--app:etv_textContentColor="#10C878"-->
+    <!--app:etv_textContentSize="10sp"-->
+    <!--app:etv_textExpand="展开"-->
+    <!--app:etv_textShrink="收起"-->
+    <!--app:etv_textStateColor="#10C878"-->
+    <!--app:etv_textStateSize="10sp"/>-->
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:gravity="center"
-        android:text="----可折叠伸缩的TextView自定义用法----"/>
-
-    <xie.com.androidcommon.viewUtil.ExpandTextView
-        android:id="@+id/tv_expand2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:etv_expandDrawable="@mipmap/icon_green_arrow_down"
-        app:etv_lines="3"
-        app:etv_shrinkDrawable="@mipmap/icon_green_arrow_up"
-        app:etv_textContentColor="#10C878"
-        app:etv_textContentSize="10sp"
-        app:etv_textExpand="展开"
-        app:etv_textShrink="收起"
-        app:etv_textStateColor="#10C878"
-        app:etv_textStateSize="10sp"/>
+        android:text="----DrawableLeft可以居中的TextView用法----"/>
 
     <xie.com.androidcommon.viewUtil.CenterDrawableTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#EDEDED"
-        android:padding="10dp"
-        android:layout_marginTop="10dp"
-        android:textColor="#FE7171"
+        android:background="#0000ff"
         android:drawableLeft="@mipmap/icon_red_money"
-        android:text="我想做个有钱人"/>
-    <xie.com.androidcommon.viewUtil.CenterDrawableTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#EDEDED"
         android:padding="10dp"
-        android:layout_marginTop="10dp"
-        android:textColor="#FE7171"
-        android:drawableRight="@mipmap/icon_red_money"
-        android:text="我想做个有钱人"/>
+        android:text="我想做个有钱人"
+        android:textColor="#FE7171"/>
 
 </LinearLayout>

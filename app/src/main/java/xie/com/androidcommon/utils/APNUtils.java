@@ -1,7 +1,4 @@
-package xie.com.androidcommon.util;
-
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
+package xie.com.androidcommon.utils;
 
 import android.content.Context;
 import android.database.Cursor;

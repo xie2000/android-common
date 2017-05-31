@@ -1,4 +1,4 @@
-package xie.com.androidcommon.util;
+package xie.com.androidcommon.utils;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -29,7 +29,6 @@ public class EncodingDetect {
 		BytesEncodingDetect s = new BytesEncodingDetect();
 		String fileCode = BytesEncodingDetect.javaname[s.detectEncoding(
 				filePath, type)];
-		System.out.println("********************fileCode:" + fileCode);
 		return fileCode;
 	}
 

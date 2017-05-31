@@ -1,4 +1,4 @@
-package xie.com.androidcommon.util;
+package xie.com.androidcommon.utils;
 
 import android.annotation.TargetApi;
 import android.app.AlarmManager;

@@ -1,4 +1,4 @@
-package xie.com.androidcommon.util;
+package xie.com.androidcommon.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
