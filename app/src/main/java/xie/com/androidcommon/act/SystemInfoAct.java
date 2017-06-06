@@ -7,7 +7,8 @@ import android.widget.TextView;
 
 import xie.com.androidcommon.R;
 import xie.com.androidcommon.base.BaseActivity;
-import xie.com.androidcommon.utils.XAppUtils;
+import xie.com.androidcommon.utils.ResUtils;
+import xie.com.androidcommon.utils.DeviceUtils;
 
 /**
  * Created by xiechengfa on 2016/9/22.
@@ -33,11 +34,11 @@ public class SystemInfoAct extends BaseActivity {
     public void initView() {
         TextView infoView = (TextView) findViewById(R.id.infoView);
         StringBuffer sb = new StringBuffer();
-        sb.append("分辨率：" + XAppUtils.getScreenWidth(this) + "X" + XAppUtils.getScreenHeight(this) + "\n");
-        sb.append("状态栏高度：" + XAppUtils.getStatusBar() + "\n");
-        sb.append("手机型号：" + XAppUtils.getHandsetType() + "\n");
-        sb.append("SDK版本：" + XAppUtils.getPhoneSDKVersionName() + "(" + XAppUtils.getPhoneSdkVersionCode() + ")\n");
-        sb.append("IMEI:" + XAppUtils.getIMEI() + "\n");
+        sb.append("分辨率：" + ResUtils.getScreenWidth() + "X" + ResUtils.getScreenHeight() + "\n");
+        sb.append("状态栏高度：" + ResUtils.getStatusBarHeight() + "\n");
+        sb.append("手机型号：" + DeviceUtils.getHandsetType() + "\n");
+        sb.append("SDK版本：" + DeviceUtils.getPhoneSDKVersionName() + "(" + DeviceUtils.getPhoneSdkVersionCode() + ")\n");
+        sb.append("IMEI:" + DeviceUtils.getIMEI() + "\n");
 
         infoView.setText(sb.toString());
     }

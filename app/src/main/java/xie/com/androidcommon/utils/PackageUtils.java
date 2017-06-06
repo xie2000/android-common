@@ -17,6 +17,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import xie.com.androidcommon.MyApplication;
@@ -62,27 +63,72 @@ public class PackageUtils {
     }
 
     /**
-     * 判断某个服务是否正在运行的方法
+     * 描述：卸载程序.
      *
-     * @param mContext
-     * @param serviceName 是包名+服务的类名（例如：net.loonggg.testbackstage.TestService）
-     * @return true代表正在运行，false代表服务没有正在运行
+     * @param packageName 包名
      */
-    public static boolean checkIsServiceWork(Context mContext, String serviceName) {
-        boolean isWork = false;
-        ActivityManager myAM = (ActivityManager) mContext.getApplicationContext()
-                .getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningServiceInfo> myList = myAM.getRunningServices(40);
-        if (myList.size() <= 0) {
-            return false;
-        }
-        for (int i = 0; i < myList.size(); i++) {
-            if (myList.get(i).service.getClassName().toString().equals(serviceName)) {
-                isWork = true;
-                break;
+    public static void uninstallApk(String packageName) {
+        Intent intent = new Intent(Intent.ACTION_DELETE);
+        Uri packageURI = Uri.parse("package:" + packageName);
+        intent.setData(packageURI);
+        MyApplication.getInstance().startActivity(intent);
+    }
+
+    /**
+     * need < uses-permission android:name ="android.permission.GET_TASKS"/>
+     * <p>
+     * 判断是否前台运行
+     * <p>
+     * 之前，使用该接口需要 android.permission.GET_TASKS
+     * 即使是自己开发的普通应用，只要声明该权限，即可以使用getRunningTasks接口。
+     * 但从L开始，这种方式以及废弃。
+     * 应用要使用该接口必须声明权限android.permission.REAL_GET_TASKS
+     * 而这个权限是不对三方应用开放的。（在Manifest里申请了也没有作用）
+     * 系统应用（有系统签名）可以调用该权限。
+     */
+    public static boolean isRunningForeground() {
+        ActivityManager am = (ActivityManager) MyApplication.getInstance().getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> taskList = am.getRunningTasks(1);
+        if (taskList != null && !taskList.isEmpty()) {
+            ComponentName componentName = taskList.get(0).topActivity;
+            if (componentName != null && componentName.getPackageName().equals(MyApplication.getInstance().getPackageName())) {
+                return true;
             }
         }
-        return isWork;
+        return false;
+    }
+
+    /**
+     * 描述: 打开App
+     *
+     * @param packageName 包名
+     */
+    public static void startApp(String packageName) {
+        if (TextUtils.isEmpty(packageName)) {
+            return;
+        }
+
+        MyApplication.getInstance().startActivity(MyApplication.getInstance().getPackageManager().getLaunchIntentForPackage(packageName));
+    }
+
+    /**
+     * 用来判断服务是否运行.
+     *
+     * @param className 判断的服务名字 "com.xxx.xx..XXXService"
+     * @return true 在运行 false 不在运行
+     */
+    public static boolean isServiceRunning(String className) {
+        boolean isRunning = false;
+        ActivityManager activityManager = (ActivityManager) MyApplication.getInstance().getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningServiceInfo> servicesList = activityManager.getRunningServices(Integer.MAX_VALUE);
+        Iterator<ActivityManager.RunningServiceInfo> l = servicesList.iterator();
+        while (l.hasNext()) {
+            ActivityManager.RunningServiceInfo si = (ActivityManager.RunningServiceInfo) l.next();
+            if (className.equals(si.service.getClassName())) {
+                isRunning = true;
+            }
+        }
+        return isRunning;
     }
 
     /**
@@ -184,6 +230,52 @@ public class PackageUtils {
             result.add(info.activityInfo.name);
         }
         return result;
+    }
+
+    /**
+     * 停止服务.
+     *
+     * @param className the class name
+     * @return true, if successful
+     */
+    public static boolean stopRunningService(String className) {
+        Intent intent = null;
+        boolean ret = false;
+        try {
+            intent = new Intent(MyApplication.getInstance(), Class.forName(className));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (intent != null) {
+            ret = MyApplication.getInstance().stopService(intent);
+        }
+        return ret;
+    }
+
+    /**
+     * 比较版本号的大小,前者大则返回一个正数,后者大返回一个负数,相等则返回0   支持4.1.2,4.1.23.4.1.rc111这种形式
+     *
+     * @param version1
+     * @param version2
+     * @return
+     */
+    public static int compareVersion(String version1, String version2) throws Exception {
+        if (version1 == null || version2 == null) {
+            throw new Exception("compareVersion xloading_error:illegal params.");
+        }
+        String[] versionArray1 = version1.split("\\.");//注意此处为正则匹配，不能用"."；
+        String[] versionArray2 = version2.split("\\.");
+        int idx = 0;
+        int minLength = Math.min(versionArray1.length, versionArray2.length);//取最小长度值
+        int diff = 0;
+        while (idx < minLength
+                && (diff = versionArray1[idx].length() - versionArray2[idx].length()) == 0//先比较长度
+                && (diff = versionArray1[idx].compareTo(versionArray2[idx])) == 0) {//再比较字符
+            ++idx;
+        }
+        //如果已经分出大小，则直接返回，如果未分出大小，则再比较位数，有子版本的为大；
+        diff = (diff != 0) ? diff : versionArray1.length - versionArray2.length;
+        return diff;
     }
 
 //    /**

@@ -141,7 +141,6 @@ public class ResUtils {
         }
 
         try {
-
             ApplicationInfo ai = MyApplication.getInstance().getPackageManager().getApplicationInfo(MyApplication.getInstance().getPackageName(), PackageManager.GET_META_DATA);
             if (null != ai) {
                 metaData = ai.metaData;
