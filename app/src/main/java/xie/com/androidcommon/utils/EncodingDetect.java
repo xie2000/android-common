@@ -74,7 +74,7 @@ class BytesEncodingDetect extends Encoding {
 	 * Function : detectEncoding Aruguments: URL Returns : One of the encodings
 	 * from the Encoding enumeration (GB2312, HZ, BIG5, EUC_TW, ASCII, or OTHER)
 	 * Description: This function looks at the URL contents and assigns it a
-	 * probability score for each encoding type. The encoding type with the
+	 * probability score for each encoding type. The encoding type Build the
 	 * highest probability is returned.
 	 */
 	public int detectEncoding(URL testurl) {
@@ -102,7 +102,7 @@ class BytesEncodingDetect extends Encoding {
 	 * Function : detectEncoding Aruguments: File Returns : One of the encodings
 	 * from the Encoding enumeration (GB2312, HZ, BIG5, EUC_TW, ASCII, or OTHER)
 	 * Description: This function looks at the file and assigns it a probability
-	 * score for each encoding type. The encoding type with the highest
+	 * score for each encoding type. The encoding type Build the highest
 	 * probability is returned.
 	 */
 	public int detectEncoding(String path, int type) {
@@ -134,7 +134,7 @@ class BytesEncodingDetect extends Encoding {
 	 * Function : detectEncoding Aruguments: byte array Returns : One of the
 	 * encodings from the Encoding enumeration (GB2312, HZ, BIG5, EUC_TW, ASCII,
 	 * or OTHER) Description: This function looks at the byte array and assigns
-	 * it a probability score for each encoding type. The encoding type with the
+	 * it a probability score for each encoding type. The encoding type Build the
 	 * highest probability is returned.
 	 */
 	public int detectEncoding(byte[] rawtext) {

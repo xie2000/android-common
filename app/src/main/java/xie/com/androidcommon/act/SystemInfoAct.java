@@ -1,4 +1,4 @@
-package xie.com.androidcommon.systeminfo;
+package xie.com.androidcommon.act;
 
 import android.app.Activity;
 import android.content.Intent;

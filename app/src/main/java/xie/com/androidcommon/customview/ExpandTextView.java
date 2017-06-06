@@ -1,4 +1,4 @@
-package xie.com.androidcommon.viewUtil;
+package xie.com.androidcommon.customview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

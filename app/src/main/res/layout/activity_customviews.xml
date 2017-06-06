@@ -3,50 +3,222 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:layout_margin="5dp"
+              android:padding="5dp"
+              android:background="#000000"
               android:orientation="vertical">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="----可折叠伸缩的TextView用法----"/>
+        android:layout_height="match_parent">
 
-    <xie.com.androidcommon.viewUtil.ExpandTextView
-        android:id="@+id/tv_expand1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:etv_lines="3"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <!--<xie.com.androidcommon.viewUtil.ExpandTextView-->
-    <!--android:id="@+id/tv_expand2"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--app:etv_expandDrawable="@mipmap/icon_green_arrow_down"-->
-    <!--app:etv_lines="3"-->
-    <!--app:etv_shrinkDrawable="@mipmap/icon_green_arrow_up"-->
-    <!--app:etv_textContentColor="#10C878"-->
-    <!--app:etv_textContentSize="10sp"-->
-    <!--app:etv_textExpand="展开"-->
-    <!--app:etv_textShrink="收起"-->
-    <!--app:etv_textStateColor="#10C878"-->
-    <!--app:etv_textStateSize="10sp"/>-->
+            <TextView
+                style="@style/my_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="----可折叠伸缩的TextView用法----"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
-        android:text="----DrawableLeft可以居中的TextView用法----"/>
+            <xie.com.androidcommon.customview.ExpandTextView
+                android:id="@+id/tv_expand1"
+                style="@style/my_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:etv_textContentColor="#ffffff"
+                app:etv_textStateColor="#ffffff"
+                app:etv_lines="3"
+                />
 
-    <xie.com.androidcommon.viewUtil.CenterDrawableTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#0000ff"
-        android:drawableLeft="@mipmap/icon_red_money"
-        android:padding="10dp"
-        android:text="我想做个有钱人"
-        android:textColor="#FE7171"/>
+            <TextView
+                style="@style/my_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:text="----DrawableLeft可以居中的TextView用法----"/>
 
+            <xie.com.androidcommon.customview.CenterDrawableTextView
+                style="@style/my_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000ff"
+                android:drawableLeft="@mipmap/icon_red_money"
+                android:padding="10dp"
+                android:text="我想做个有钱人"
+                android:textColor="#FE7171"/>
+
+            <TextView
+                style="@style/my_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:text="----一个可以用代码设置selector背景（按下去背景颜色更改，样式变化等等）的button, 再也不用写selector了----"
+                />
+
+            <xie.com.androidcommon.customview.XStateButton
+                android:id="@+id/text_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:text="change text color"
+                app:normalBackgroundColor="@color/colorPrimary"
+                app:normalTextColor="@android:color/white"
+                app:pressedBackgroundColor="@color/colorPrimary"
+                app:pressedTextColor="@android:color/holo_red_light"
+                app:unableBackgroundColor="@color/colorPrimary"
+                app:unableTextColor="@android:color/holo_orange_dark"/>
+
+
+            <xie.com.androidcommon.customview.XStateButton
+                android:id="@+id/background_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:text="change background"
+                android:textColor="@android:color/white"
+                app:normalBackgroundColor="@color/colorPrimary"
+                app:pressedBackgroundColor="@color/colorPrimaryDark"
+                app:unableBackgroundColor="@android:color/holo_red_light"/>
+
+
+            <xie.com.androidcommon.customview.XStateButton
+                android:id="@+id/radius_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:text="with radius"
+                android:textColor="@android:color/white"
+                app:normalBackgroundColor="@color/colorPrimary"
+                app:pressedBackgroundColor="@color/colorPrimaryDark"
+                app:radius="10dp"
+                app:unableBackgroundColor="@android:color/holo_red_light"/>
+
+            <xie.com.androidcommon.customview.XStateButton
+                android:id="@+id/round_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:text="round radius"
+                android:textColor="@android:color/white"
+                app:normalBackgroundColor="@color/colorPrimary"
+                app:pressedBackgroundColor="@color/colorPrimaryDark"
+                app:radius="2dp"
+                app:round="true"
+                app:unableBackgroundColor="@android:color/holo_red_light"/>
+
+            <xie.com.androidcommon.customview.XStateButton
+                android:id="@+id/different_radius_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:text="different_radius"
+                android:textColor="@android:color/white"
+                app:normalBackgroundColor="@color/colorPrimary"
+                app:pressedBackgroundColor="@color/colorPrimaryDark"
+                app:unableBackgroundColor="@android:color/holo_red_light"/>
+
+            <xie.com.androidcommon.customview.XStateButton
+                android:id="@+id/dash_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:text="with dash"
+                app:normalStrokeColor="@android:color/white"
+                app:normalStrokeWidth="2dp"
+                app:normalTextColor="@android:color/white"
+                app:pressedStrokeColor="@android:color/holo_red_light"
+                app:pressedStrokeWidth="2dp"
+                app:pressedTextColor="@android:color/holo_red_light"
+                app:radius="5dp"
+                app:strokeDashGap="5dp"
+                app:strokeDashWidth="5dp"
+                app:unableStrokeColor="@android:color/holo_orange_dark"
+                app:unableStrokeWidth="2dp"
+                app:unableTextColor="@android:color/holo_orange_dark"/>
+
+            <xie.com.androidcommon.customview.XStateButton
+                android:id="@+id/stroke_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:text="with stroke"
+                app:normalStrokeColor="@android:color/white"
+                app:normalStrokeWidth="2dp"
+                app:normalTextColor="@android:color/white"
+                app:pressedStrokeColor="@android:color/holo_red_light"
+                app:pressedStrokeWidth="2dp"
+                app:pressedTextColor="@android:color/holo_red_light"
+                app:radius="5dp"
+                app:unableStrokeColor="@android:color/holo_orange_dark"
+                app:unableStrokeWidth="2dp"
+                app:unableTextColor="@android:color/holo_orange_dark"/>
+
+            <xie.com.androidcommon.customview.XStateButton
+                android:id="@+id/stroke_background_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:text="keep stroke"
+                app:normalStrokeColor="@android:color/white"
+                app:normalStrokeWidth="2dp"
+                app:normalTextColor="@android:color/white"
+                app:pressedBackgroundColor="@color/colorPrimaryDark"
+                app:pressedStrokeColor="@android:color/white"
+                app:pressedStrokeWidth="2dp"
+                app:pressedTextColor="@android:color/white"
+                app:radius="5dp"/>
+
+            <xie.com.androidcommon.customview.XStateButton
+                android:id="@+id/stroke_background_test2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:text="stroke_background"
+                app:normalStrokeColor="@android:color/white"
+                app:normalStrokeWidth="2dp"
+                app:normalTextColor="@android:color/white"
+                app:pressedBackgroundColor="@color/colorPrimaryDark"
+                app:pressedTextColor="@android:color/white"
+                app:radius="5dp"/>
+
+            <xie.com.androidcommon.customview.XStateButton
+                android:id="@+id/stroke_background_animation_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:text="stroke_background_animation"
+                app:animationDuration="200"
+                app:normalStrokeColor="@android:color/white"
+                app:normalStrokeWidth="2dp"
+                app:normalTextColor="@android:color/white"
+                app:pressedBackgroundColor="@color/colorPrimaryDark"
+                app:pressedTextColor="@android:color/white"
+                app:radius="5dp"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

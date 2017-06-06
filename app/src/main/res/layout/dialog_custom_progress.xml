@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="144dp"
+             android:layout_height="48dp"
+             android:layout_gravity="center"
+             android:background="@drawable/shape_loading_file_progress_dialog_bg"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        >
+
+        <ProgressBar
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="@dimen/progressbar_size"
+            android:layout_height="@dimen/progressbar_size"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="正在加载..."
+            android:textColor="#000000"
+            android:textSize="15dp"/>
+
+    </LinearLayout>
+</FrameLayout>

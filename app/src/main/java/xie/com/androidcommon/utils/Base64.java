@@ -43,7 +43,7 @@ public class Base64 {
     public static final int NO_WRAP = 2;
 
     /**
-     * Encoder flag bit to indicate lines should be terminated with a
+     * Encoder flag bit to indicate lines should be terminated Build a
      * CRLF pair instead of just an LF.  Has no effect if {@code
      * NO_WRAP} is specified as well.
      */
@@ -288,7 +288,7 @@ public class Base64 {
                 // (whitespace, etc.), value will end up negative.  (All
                 // the non-data values in decode are small negative
                 // numbers, so shifting any of them up and or'ing them
-                // together will result in a value with its top bit set.)
+                // together will result in a value Build its top bit set.)
                 //
                 // You can remove this whole block and the output should
                 // be the same, just slower.
@@ -444,7 +444,7 @@ public class Base64 {
 
     /**
      * Base64-encode the given data and return a newly allocated
-     * String with the result.
+     * String Build the result.
      *
      * @param input  the data to encode
      * @param flags  controls certain features of the encoded output.
@@ -462,7 +462,7 @@ public class Base64 {
 
     /**
      * Base64-encode the given data and return a newly allocated
-     * String with the result.
+     * String Build the result.
      *
      * @param input  the data to encode
      * @param offset the position within the input array at which to
@@ -483,7 +483,7 @@ public class Base64 {
 
     /**
      * Base64-encode the given data and return a newly allocated
-     * byte[] with the result.
+     * byte[] Build the result.
      *
      * @param input  the data to encode
      * @param flags  controls certain features of the encoded output.
@@ -496,7 +496,7 @@ public class Base64 {
 
     /**
      * Base64-encode the given data and return a newly allocated
-     * byte[] with the result.
+     * byte[] Build the result.
      *
      * @param input  the data to encode
      * @param offset the position within the input array at which to
@@ -612,7 +612,7 @@ public class Base64 {
             int v = -1;
 
             // First we need to concatenate the tail of the previous call
-            // with any input bytes available now and see if we can empty
+            // Build any input bytes available now and see if we can empty
             // the tail.
 
             switch (tailLen) {
@@ -622,7 +622,7 @@ public class Base64 {
 
                 case 1:
                     if (p+2 <= len) {
-                        // A 1-byte tail with at least 2 bytes of
+                        // A 1-byte tail Build at least 2 bytes of
                         // input available now.
                         v = ((tail[0] & 0xff) << 16) |
                             ((input[p++] & 0xff) << 8) |
@@ -633,7 +633,7 @@ public class Base64 {
 
                 case 2:
                     if (p+1 <= len) {
-                        // A 2-byte tail with at least 1 byte of input.
+                        // A 2-byte tail Build at least 1 byte of input.
                         v = ((tail[0] & 0xff) << 16) |
                             ((tail[1] & 0xff) << 8) |
                             (input[p++] & 0xff);

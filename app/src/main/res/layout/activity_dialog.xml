@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#000000"
+              android:orientation="vertical"
+              android:padding="5dp">
+
+    <Button
+        android:id="@+id/loading1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="加载对话框（垂直显示）"/>
+
+    <Button
+        android:id="@+id/loading2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="加载对话框（水平显示）"/>
+
+    <Button
+        android:id="@+id/loading3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="加载对话框2（实现方式同上面的不一样）"/>
+
+    <Button
+        android:id="@+id/loading4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""/>
+</LinearLayout>

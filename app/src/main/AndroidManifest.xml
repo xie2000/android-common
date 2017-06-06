@@ -24,7 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".systeminfo.SystemInfoAct"/>
-        <activity android:name=".customview.CustomViewsAct"/>
+        <activity android:name=".act.SystemInfoAct"/>
+        <activity android:name=".act.CustomViewsAct"/>
+        <activity android:name=".act.DialogAct"/>
     </application>
 </manifest>

@@ -1,4 +1,4 @@
-package xie.com.androidcommon.viewUtil;
+package xie.com.androidcommon.customview;
 
 import android.annotation.TargetApi;
 import android.content.Context;
