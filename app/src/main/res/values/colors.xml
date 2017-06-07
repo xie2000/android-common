@@ -8,4 +8,49 @@
     <color name="XFrame_white">#ffffff</color>
     <color name="XFrame_text_gray">#8a8a8a</color>
     <color name="loading_dialog_message">#595959</color>
+
+    <!-- 通用颜色表 背景 -->
+    <color name="b1">#EFEFF4</color>
+    <color name="b2">#FFFFFF</color>
+    <color name="b3">#F4F4F9</color>
+    <color name="b4">#FFFFFF</color>
+    <color name="b5">#e6e6e6</color>
+    <color name="b6">#EB333B</color>
+    <color name="b7">#AD262D</color>
+    <color name="b8">#fafafa</color>
+    <color name="b9">#ffedee</color>
+    <color name="b10">#f0f0f0</color>
+    <color name="b11">#dddddd</color>
+
+    <!-- 通用颜色表 线颜色 -->
+    <color name="l1">#C02A30</color>
+    <color name="l2">#DDDDDD</color>
+    <color name="l3">#B4B4B4</color>
+    <color name="l4">#B2B2B2</color>
+    <color name="l5">#AD262D</color>
+    <color name="l6">#0079FF</color>
+    <color name="l7">#646464</color>
+    <color name="l8">#ffffff</color>
+
+    <!-- 通用颜色表 文字颜色 -->
+    <color name="t1">#333333</color>
+    <color name="t2">#8C8C8C</color>
+    <color name="t3">#A0A0A0</color>
+    <color name="t4">#FFFFFF</color>
+    <color name="t5">#BEBEBE</color>
+    <color name="t6">#fafafa</color>
+    <color name="t7">#242424</color>
+    <color name="t8">#c02a30</color>
+    <color name="t9">#646464</color>
+
+    <!-- 通用颜色表 辅助色 -->
+    <color name="c1">#eb333b</color>
+    <color name="c2">#17B03E</color>
+    <color name="c3">#AD262D</color>
+    <color name="c4">#0079FF</color>
+    <color name="c5">#fbd6d8</color>
+    <color name="c6">#d1efd8</color>
+    <color name="c7">#4ca1fe</color>
+
+    <color name="bg_transparent">#00000000</color>
 </resources>

@@ -13,4 +13,32 @@
     <dimen name="XFrame_adapter_icon_size">24dp</dimen>
     <dimen name="progressbar_size">24dp</dimen>
     <dimen name="XFrame_radius">6dp</dimen>
+
+    <dimen name="line_height">1px</dimen>
+
+    <!-- txt size -->
+    <dimen name="txt_s1">9dp</dimen>
+    <dimen name="txt_s2">10dp</dimen>
+    <dimen name="txt_s3">11dp</dimen>
+    <dimen name="txt_s4">12dp</dimen>
+    <dimen name="txt_s5">13dp</dimen>
+    <dimen name="txt_s6">14dp</dimen>
+    <dimen name="txt_s7">15dp</dimen>
+    <dimen name="txt_s8">16dp</dimen>
+    <dimen name="txt_s9">17dp</dimen>
+    <dimen name="txt_s10">18dp</dimen>
+    <dimen name="txt_s11">20dp</dimen>
+    <dimen name="txt_s12">22dp</dimen>
+    <dimen name="txt_s13">30dp</dimen>
+    <dimen name="txt_s14">35dp</dimen>
+    <dimen name="txt_s15">41dp</dimen>
+
+    <!-- IOS7 Dialog -->
+    <!-- 选项菜单的高度 -->
+    <dimen name="actionsheet_height">48dip</dimen>
+    <!-- 选项菜单里取消按钮和上方菜单的间距的高度 -->
+    <dimen name="actionsheet_cancel_sp_height">13dip</dimen>
+    <!-- item里图片和内容的间隔 -->
+    <dimen name="actionsheet_icon_text_sp">12dip</dimen>
+    <dimen name="custom_dialog_btn_heigt">44dip</dimen>
 </resources>

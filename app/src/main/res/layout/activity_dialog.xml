@@ -25,8 +25,20 @@
         android:text="加载对话框2（实现方式同上面的不一样）"/>
 
     <Button
-        android:id="@+id/loading4"
+        android:id="@+id/alert_dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""/>
+        android:text="AlertDialog"/>
+
+    <Button
+        android:id="@+id/toast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Toast"/>
+
+    <Button
+        android:id="@+id/list_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ListDialog"/>
 </LinearLayout>

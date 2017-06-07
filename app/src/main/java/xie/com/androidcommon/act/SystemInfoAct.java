@@ -39,6 +39,7 @@ public class SystemInfoAct extends BaseActivity {
         sb.append("手机型号：" + DeviceUtils.getHandsetType() + "\n");
         sb.append("SDK版本：" + DeviceUtils.getPhoneSDKVersionName() + "(" + DeviceUtils.getPhoneSdkVersionCode() + ")\n");
         sb.append("IMEI:" + DeviceUtils.getIMEI() + "\n");
+        sb.append("设备指纹:"+DeviceUtils.createFingerprint()+"\n");
 
         infoView.setText(sb.toString());
     }

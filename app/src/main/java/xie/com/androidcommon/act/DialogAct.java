@@ -7,9 +7,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+
 import xie.com.androidcommon.R;
 import xie.com.androidcommon.base.BaseActivity;
+import xie.com.androidcommon.dialog.CustomDialog;
 import xie.com.androidcommon.dialog.CustomProgressDialog;
+import xie.com.androidcommon.dialog.DialogUtils;
+import xie.com.androidcommon.dialog.ListDialog;
+import xie.com.androidcommon.dialog.ListDialogMenuInfo;
 import xie.com.androidcommon.dialog.LoadingDialog;
 
 /**
@@ -37,7 +43,9 @@ public class DialogAct extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.loading1).setOnClickListener(this);
         findViewById(R.id.loading2).setOnClickListener(this);
         findViewById(R.id.loading3).setOnClickListener(this);
-        findViewById(R.id.loading4).setOnClickListener(this);
+        findViewById(R.id.alert_dialog).setOnClickListener(this);
+        findViewById(R.id.list_dialog).setOnClickListener(this);
+        findViewById(R.id.toast).setOnClickListener(this);
     }
 
     @Override
@@ -73,7 +81,31 @@ public class DialogAct extends BaseActivity implements View.OnClickListener {
                 }
             });
             progressDialog.show();
-        } else if (v.getId() == R.id.loading4) {
+        } else if (v.getId() == R.id.alert_dialog) {
+            DialogUtils.showMessageDialog(this, "退出", "确定要退出应用？", "确定", "取消", new CustomDialog.CustomDialogListener() {
+                @Override
+                public void onConfirmBtnClicked() {
+                }
+
+                @Override
+                public void onCancelBtnClicked() {
+                }
+            });
+        }else if(v.getId()==R.id.list_dialog){
+            ArrayList<ListDialogMenuInfo> sheetItemList = new ArrayList<>();
+            sheetItemList.add(new ListDialogMenuInfo(1,"item1"));
+            sheetItemList.add(new ListDialogMenuInfo(2,"item2"));
+            sheetItemList.add(new ListDialogMenuInfo(3,"item3"));
+            sheetItemList.add(new ListDialogMenuInfo(5,"item4"));
+
+            DialogUtils.showListDialog(this, sheetItemList, new ListDialog.OnListDialogItemClickListener() {
+                @Override
+                public void onItemClicked(int code) {
+
+                }
+            });
+        }else if(v.getId()==R.id.toast){
+            DialogUtils.showToast("toast测试");
         }
     }
 }

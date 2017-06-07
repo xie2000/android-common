@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
  * 工具类
  */
 public class Utils {
+    public static final float DIALOG_WIDTH_SCALE = 0.85f;// 对话框对于屏幕的比例
+
     /**
      * 回收图片
      *
