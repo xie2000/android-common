@@ -11,6 +11,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
+import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -56,10 +57,26 @@ public class BitmapUtils {
     /**
      * 创建Drawable
      *
+     * @param resId
+     * @return
+     */
+    public static Drawable getDrawable(int resId) {
+        Drawable drawable = null;
+        try {
+            drawable = XOutdatedUtils.getDrawable(resId);
+        } catch (OutOfMemoryError e) {
+            e.printStackTrace();
+        }
+        return drawable;
+    }
+
+    /**
+     * 创建Drawable
+     *
      * @param path
      * @return
      */
-    public static Drawable createDrawable(String path) {
+    public static Drawable getDrawable(String path) {
         if (path == null) {
             return null;
         }
@@ -115,20 +132,37 @@ public class BitmapUtils {
     }
 
     /**
-     * 创建Drawable
+     * 通过资源图片的名称创建图片
      *
-     * @param resId
+     * @param resName
      * @return
      */
-    public static Drawable createDrawable(int resId) {
-        Drawable drawable = null;
-        try {
-            drawable = MyApplication.getInstance().getResources()
-                    .getDrawable(resId);
-        } catch (OutOfMemoryError e) {
-            e.printStackTrace();
+    public static Drawable getDrawableOfResName(String resName) {
+        return getDrawable(getDrawableResIdOfResName(resName));
+    }
+
+    /**
+     * 将 Bitmap转化为Drawable
+     *
+     * @param bm Bitmap
+     * @return Drawable
+     */
+    public static Drawable getDrawableFromBitmap(Bitmap bm) {
+        if (bm == null) {
+            return null;
         }
-        return drawable;
+        return new BitmapDrawable(bm);
+    }
+
+    /**
+     * 创建图片
+     *
+     * @param resId 图片ID
+     * @return 图片
+     */
+    public static Bitmap getBitmap(int resId) {
+        return BitmapFactory.decodeResource(MyApplication.getInstance()
+                .getResources(), resId);
     }
 
     /**
@@ -137,7 +171,7 @@ public class BitmapUtils {
      * @param path
      * @return
      */
-    public static Bitmap createBitmap(String path) {
+    public static Bitmap getBitmap(String path) {
         if (path == null) {
             return null;
         }
@@ -171,16 +205,79 @@ public class BitmapUtils {
     }
 
     /**
-     * 创建图片
+     * 通过资源图片的名称创建图片
      *
-     * @param resId 图片ID
-     * @return 图片
+     * @param resName
+     * @return
      */
-    public static Bitmap createBitmap(int resId) {
-        return BitmapFactory.decodeResource(MyApplication.getInstance()
-                .getResources(), resId);
+    public static Bitmap getBitmapOfResName(String resName) {
+        return getBitmap(getDrawableResIdOfResName(resName));
     }
 
+    /**
+     * 将Drawable转化为Bitmap
+     *
+     * @param drawable Drawable
+     * @return Bitmap
+     */
+    public static Bitmap getBitmapFromDrawable(Drawable drawable) {
+        if (drawable == null) {
+            return null;
+        }
+        // 取 drawable 的长宽
+        int w = drawable.getIntrinsicWidth();
+        int h = drawable.getIntrinsicHeight();
+        // 取 drawable 的颜色格式
+        Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+                : Bitmap.Config.RGB_565;
+        // 建立对应 bitmap
+        Bitmap bitmap = Bitmap.createBitmap(w, h, config);
+        // 建立对应 bitmap 的画布
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, w, h);
+        // 把 drawable 内容画到画布中
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
+    /**
+     * 获取一个指定大小的bitmap
+     * byte[] → Bitmap
+     * @param b Byte数组
+     * @return 需要的Bitmap
+     */
+    public static Bitmap getBitmapFromBytes(byte[] b) {
+        if (b.length != 0) {
+            return BitmapFactory.decodeByteArray(b, 0, b.length);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * bitmap转换byte
+     *
+     * @param bmp
+     * @return
+     */
+    public static byte[] getBytesFromBitmap(final Bitmap bmp) {
+        if (bmp == null) {
+            return null;
+        }
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        bmp.compress(CompressFormat.PNG, 100, output);
+        bmp.recycle();
+
+        byte[] result = output.toByteArray();
+        try {
+            output.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
     /**
      * 创建指定大小的图片
      *
@@ -189,9 +286,9 @@ public class BitmapUtils {
      * @param height
      * @return
      */
-    public static Bitmap createBitmap(int resId, int width, int height) {
+    public static Bitmap getBitmap(int resId, int width, int height) {
         Bitmap resBitmap = null;
-        Bitmap srcBimaBitmap = createBitmap(resId);
+        Bitmap srcBimaBitmap = getBitmap(resId);
         if (srcBimaBitmap != null) {
             resBitmap = Bitmap.createScaledBitmap(srcBimaBitmap, width, height,
                     true);
@@ -206,7 +303,7 @@ public class BitmapUtils {
      * @param height
      * @return
      */
-    public static Bitmap createBitmap(Bitmap bitmap, int width, int height) {
+    public static Bitmap getBitmap(Bitmap bitmap, int width, int height) {
         if (bitmap == null) {
             return null;
         }
@@ -221,10 +318,10 @@ public class BitmapUtils {
      * @param height
      * @return
      */
-    public static Bitmap createBitmap(String path, int width, int height) {
+    public static Bitmap getBitmap(String path, int width, int height) {
         Bitmap resBitmap = null;
         try {
-            Bitmap srcBimaBitmap = createBitmap(path);
+            Bitmap srcBimaBitmap = getBitmap(path);
 
             if (srcBimaBitmap != null) {
                 resBitmap = Bitmap.createScaledBitmap(srcBimaBitmap, width,
@@ -615,31 +712,6 @@ public class BitmapUtils {
     }
 
     /**
-     * bitmap转换byte
-     *
-     * @param bmp
-     * @return
-     */
-    public static byte[] readBitmapToByte(final Bitmap bmp) {
-        if (bmp == null) {
-            return null;
-        }
-
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        bmp.compress(CompressFormat.PNG, 100, output);
-        bmp.recycle();
-
-        byte[] result = output.toByteArray();
-        try {
-            output.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
-
-    /**
      * @param @param  path
      * @param @return
      * @return Point
@@ -898,7 +970,7 @@ public class BitmapUtils {
 
         Bitmap dstBitmap = null;
         try {
-            Bitmap resBitmap = createBitmap(resId);
+            Bitmap resBitmap = getBitmap(resId);
             int v = resBitmap.getWidth() % 10;
             // 修正图片宽度象素为可被10整除，为了避免截取图片位置出错的问题
             if (v != 0) {
@@ -950,17 +1022,6 @@ public class BitmapUtils {
         Drawable drawable = new BitmapDrawable(MyApplication.getInstance()
                 .getResources(), bitmap);
         return drawable;
-    }
-
-    /**
-     * 通过资源图片的名称创建图片
-     *
-     * @param resName
-     * @return
-     */
-    public static Drawable getDrawableOfResName(String resName) {
-        return MyApplication.getInstance().getResources()
-                .getDrawable(getDrawableResIdOfResName(resName));
     }
 
     /**
@@ -1080,7 +1141,6 @@ public class BitmapUtils {
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
                 bitmap.getHeight(), matrix, false);
     }
-
 
     // 计算图片的缩放值
     private static int calculateInSampleSize(BitmapFactory.Options options,

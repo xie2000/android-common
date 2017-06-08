@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         } else if (list.get(i).equals(ITEM_CUSTOMVIEWS)) {
             //自定义View
             CustomViewsAct.startAcy(this);
-        }else if (list.get(i).equals(ITEM_DIALOG)) {
+        } else if (list.get(i).equals(ITEM_DIALOG)) {
             //各种对话框
             DialogAct.startAcy(this);
         }
