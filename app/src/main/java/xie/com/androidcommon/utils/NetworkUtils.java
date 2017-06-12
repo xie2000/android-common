@@ -37,28 +37,6 @@ public class NetworkUtils {
     }
 
     /**
-     * 打开网络设置界面
-     * <p>3.0以下打开设置界面</p>
-     */
-    public static void openWirelessSettings() {
-        if (android.os.Build.VERSION.SDK_INT > 10) {
-            MyApplication.getInstance().startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        } else {
-            MyApplication.getInstance().startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        }
-    }
-
-    /**
-     * 获取活动网络信息
-     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
-     *
-     * @return NetworkInfo
-     */
-    private static NetworkInfo getActiveNetworkInfo() {
-        return ((ConnectivityManager) MyApplication.getInstance().getSystemService(MyApplication.getInstance().CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
-    }
-
-    /**
      * 判断网络是否连接
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
      *
@@ -78,6 +56,28 @@ public class NetworkUtils {
     public static boolean isAvailable() {
         NetworkInfo info = getActiveNetworkInfo();
         return info != null && info.isAvailable();
+    }
+
+    /**
+     * 打开网络设置界面
+     * <p>3.0以下打开设置界面</p>
+     */
+    public static void openWirelessSettings() {
+        if (android.os.Build.VERSION.SDK_INT > 10) {
+            MyApplication.getInstance().startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        } else {
+            MyApplication.getInstance().startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        }
+    }
+
+    /**
+     * 获取活动网络信息
+     * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
+     *
+     * @return NetworkInfo
+     */
+    private static NetworkInfo getActiveNetworkInfo() {
+        return ((ConnectivityManager) MyApplication.getInstance().getSystemService(MyApplication.getInstance().CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
     }
 
     /**
