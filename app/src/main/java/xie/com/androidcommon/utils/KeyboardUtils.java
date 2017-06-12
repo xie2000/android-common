@@ -19,9 +19,9 @@ import android.widget.EditText;
 /**
  * 键盘相关工具类
  */
-public class XKeyboardUtils {
+public class KeyboardUtils {
 
-    private XKeyboardUtils() {
+    private KeyboardUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
@@ -114,9 +114,9 @@ public class XKeyboardUtils {
             int right = left + currentFocusView.getWidth();
             if (!(motionEvent.getX() > left && motionEvent.getX() < right && motionEvent.getY() > top && motionEvent.getY() < bottom)) {
                 if (dialogOrActivity instanceof Dialog) {
-                    XKeyboardUtils.closeKeyboard((Dialog) dialogOrActivity);
+                    KeyboardUtils.closeKeyboard((Dialog) dialogOrActivity);
                 } else if (dialogOrActivity instanceof Activity) {
-                    XKeyboardUtils.closeKeyboard((Activity) dialogOrActivity);
+                    KeyboardUtils.closeKeyboard((Activity) dialogOrActivity);
                 }
             }
         }

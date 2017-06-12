@@ -28,7 +28,7 @@ import java.util.Locale;
          K 时 在上午或下午 (0~11)
          z 时区
  */
-public class XDateUtils {
+public class DateUtils {
     /**
      * 默认格式
      */

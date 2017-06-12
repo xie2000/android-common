@@ -9,18 +9,18 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 
-public class XColorDrawable extends Drawable {
+public class CustomColorDrawable extends Drawable {
     private Paint mPaint;
     private int color;
     private RectF rectF;
 
-    public XColorDrawable() {
+    public CustomColorDrawable() {
         mPaint = new Paint();
         // 是否抗锯齿
         mPaint.setAntiAlias(true);
     }
 
-    public XColorDrawable(int color) {
+    public CustomColorDrawable(int color) {
         this.color = color;
         mPaint = new Paint();
         mPaint.setAntiAlias(true);

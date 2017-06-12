@@ -8,7 +8,7 @@ import android.widget.TextView;
 import xie.com.androidcommon.R;
 import xie.com.androidcommon.base.BaseActivity;
 import xie.com.androidcommon.utils.ResUtils;
-import xie.com.androidcommon.utils.DeviceUtils;
+import xie.com.androidcommon.utils.AppUtils;
 
 /**
  * Created by xiechengfa on 2016/9/22.
@@ -36,10 +36,10 @@ public class SystemInfoAct extends BaseActivity {
         StringBuffer sb = new StringBuffer();
         sb.append("分辨率：" + ResUtils.getScreenWidth() + "X" + ResUtils.getScreenHeight() + "\n");
         sb.append("状态栏高度：" + ResUtils.getStatusBarHeight() + "\n");
-        sb.append("手机型号：" + DeviceUtils.getHandsetType() + "\n");
-        sb.append("SDK版本：" + DeviceUtils.getPhoneSDKVersionName() + "(" + DeviceUtils.getPhoneSdkVersionCode() + ")\n");
-        sb.append("IMEI:" + DeviceUtils.getIMEI() + "\n");
-        sb.append("设备指纹:"+DeviceUtils.createFingerprint()+"\n");
+        sb.append("手机型号：" + AppUtils.getHandsetType() + "\n");
+        sb.append("SDK版本：" + AppUtils.getPhoneSDKVersionName() + "(" + AppUtils.getPhoneSdkVersionCode() + ")\n");
+        sb.append("IMEI:" + AppUtils.getIMEI() + "\n");
+        sb.append("设备指纹:"+ AppUtils.createFingerprint()+"\n");
 
         infoView.setText(sb.toString());
     }

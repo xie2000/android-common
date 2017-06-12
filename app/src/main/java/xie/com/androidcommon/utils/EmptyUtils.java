@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * 判断是否为空工具类
  */
-public class XEmptyUtils {
+public class EmptyUtils {
     /**
      * 判断对象是否为null或长度数量为0
      *

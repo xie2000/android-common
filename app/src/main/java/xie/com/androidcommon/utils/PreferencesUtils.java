@@ -10,9 +10,9 @@ import java.util.Map;
 import xie.com.androidcommon.MyApplication;
 
 
-public class XPreferencesUtils {
+public class PreferencesUtils {
 
-    private XPreferencesUtils() {
+    private PreferencesUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 

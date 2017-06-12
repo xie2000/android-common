@@ -17,9 +17,9 @@ import xie.com.androidcommon.MyApplication;
 /**
  * 此类主要是用来放一些系统过时方法的处理
  */
-public class XOutdatedUtils {
+public class OutdatedUtils {
 
-    private XOutdatedUtils() {
+    private OutdatedUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 

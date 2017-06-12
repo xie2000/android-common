@@ -5,15 +5,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
-import xie.com.androidcommon.utils.XActivityStack;
-import xie.com.androidcommon.utils.XPermission;
+import xie.com.androidcommon.utils.ActivityStackManager;
+import xie.com.androidcommon.utils.PermissionUtils;
 
 public abstract class XActivity extends AppCompatActivity implements ICallback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        XActivityStack.getInstance().addActivity(this);
+        ActivityStackManager.getInstance().addActivity(this);
         if (getLayoutId()>0) {
             setContentView(getLayoutId());
         }
@@ -32,13 +32,13 @@ public abstract class XActivity extends AppCompatActivity implements ICallback {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]
             grantResults) {
-        XPermission.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionUtils.onRequestPermissionsResult(requestCode, permissions, grantResults);
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        XActivityStack.getInstance().finishActivity();
+        ActivityStackManager.getInstance().finishActivity();
     }
 }

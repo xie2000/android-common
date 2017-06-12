@@ -3,7 +3,7 @@ package xie.com.androidcommon;
 import android.app.Application;
 import android.util.DisplayMetrics;
 
-import xie.com.androidcommon.utils.XCrashHandlerUtils;
+import xie.com.androidcommon.utils.CrashHandlerUtils;
 
 /**
  * @author xiechengfa
@@ -22,7 +22,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        XCrashHandlerUtils.getInstance().init(this);
+        CrashHandlerUtils.getInstance().init(this);
         instance = this;
     }
 

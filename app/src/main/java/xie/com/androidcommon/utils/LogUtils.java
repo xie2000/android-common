@@ -4,13 +4,13 @@ package xie.com.androidcommon.utils;
  * 此内用于框架系统打印输出控制，使用者用XLog格式化体验更好。
  *
  */
-public class XPrintUtils {
+public class LogUtils {
 
     private static String tag = "AndroidCommon";
     private static boolean isDebug = true;
 
     public static void setIsDebug(boolean isDebug) {
-        XPrintUtils.isDebug = isDebug;
+        LogUtils.isDebug = isDebug;
     }
 
     public static void i(String msg) {

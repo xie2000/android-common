@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 
 import xie.com.androidcommon.R;
-import xie.com.androidcommon.utils.XStatusBar;
+import xie.com.androidcommon.utils.StatusBarUtils;
 
 /**
  * 必须继承XActivity，你也可以每个都继承XActivity，这里进行再次封装是为了便于你维护和增加你需要的方法
@@ -37,7 +37,7 @@ public abstract class BaseActivity extends XActivity {
     }
 
     protected void setStatusBar() {
-        XStatusBar.setColor(this, getResources().getColor(R.color.colorPrimary),0);
+        StatusBarUtils.setColor(this, getResources().getColor(R.color.colorPrimary),0);
     }
 
     @Override

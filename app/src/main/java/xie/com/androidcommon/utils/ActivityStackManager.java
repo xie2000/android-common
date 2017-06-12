@@ -8,14 +8,14 @@ import java.util.Stack;
 /**
  * 应用程序Activity管理类：用于Activity管理和应用程序退出
  */
-final public class XActivityStack {
+final public class ActivityStackManager {
     private static Stack<Activity> activityStack;
-    private static final XActivityStack instance = new XActivityStack();
+    private static final ActivityStackManager instance = new ActivityStackManager();
 
-    private XActivityStack() {
+    private ActivityStackManager() {
     }
 
-    public static XActivityStack getInstance() {
+    public static ActivityStackManager getInstance() {
         return instance;
     }
 

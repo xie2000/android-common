@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import xie.com.androidcommon.R;
 import xie.com.androidcommon.utils.ResUtils;
-import xie.com.androidcommon.utils.XColorDrawable;
-import xie.com.androidcommon.utils.XOutdatedUtils;
+import xie.com.androidcommon.utils.CustomColorDrawable;
+import xie.com.androidcommon.utils.OutdatedUtils;
 
 /**
  * 加载对话框
@@ -26,7 +26,7 @@ public class LoadingDialog extends Dialog {
     private LinearLayout loadingView;
     private ProgressBar progressBar;
     private TextView loadingMessage;
-    private XColorDrawable drawable;
+    private CustomColorDrawable drawable;
     private OnCancelLoadingDiaListener listener;
 
     public LoadingDialog(Context context) {
@@ -41,9 +41,9 @@ public class LoadingDialog extends Dialog {
         loadingView = (LinearLayout) findViewById(R.id.ll_loading);
         loadingMessage.setPadding(0, ResUtils.getResDimensionPixelSize(R.dimen.spacing), 0, 0);
 
-        drawable = new XColorDrawable();
+        drawable = new CustomColorDrawable();
         drawable.setColor(Color.WHITE);
-        XOutdatedUtils.setBackground(loadingView, drawable);
+        OutdatedUtils.setBackground(loadingView, drawable);
     }
 
     public static LoadingDialog Build(Context context) {
@@ -65,7 +65,7 @@ public class LoadingDialog extends Dialog {
 
     public LoadingDialog setBackgroundColor(@ColorInt int color) {
         drawable.setColor(color);
-        XOutdatedUtils.setBackground(loadingView, drawable);
+        OutdatedUtils.setBackground(loadingView, drawable);
         return dialog;
     }
 

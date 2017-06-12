@@ -21,7 +21,7 @@ import xie.com.androidcommon.R;
  *
  * 设置状态栏沉浸式或者状态栏颜色
  */
-public class XStatusBar {
+public class StatusBarUtils {
     public static final int DEFAULT_STATUS_BAR_ALPHA = 112;
     public static final int FAKE_STATUS_BAR_VIEW_ID = R.id.xstatusbar_fake_status_bar_view;
     public static final int FAKE_TRANSLUCENT_VIEW_ID = R.id.xstatusbar_translucent_view;

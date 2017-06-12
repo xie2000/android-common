@@ -22,7 +22,7 @@ import java.util.Map;
  * 在Application 中调用
  * CrashHandlerUtil.getInstance().init(this);
  */
-public class XCrashHandlerUtils implements Thread.UncaughtExceptionHandler {
+public class CrashHandlerUtils implements Thread.UncaughtExceptionHandler {
     //程序的Context对象
     private Context mContext;
     //用来存储设备信息和异常信息
@@ -30,12 +30,12 @@ public class XCrashHandlerUtils implements Thread.UncaughtExceptionHandler {
     private String crashTip = "很抱歉，程序出现异常，即将退出！";
 
     //CrashHandler实例
-    private static XCrashHandlerUtils INSTANCE = new XCrashHandlerUtils();
+    private static CrashHandlerUtils INSTANCE = new CrashHandlerUtils();
 
     /**
      * 保证只有一个CrashHandler实例
      */
-    private XCrashHandlerUtils() {
+    private CrashHandlerUtils() {
     }
 
     /**
@@ -43,7 +43,7 @@ public class XCrashHandlerUtils implements Thread.UncaughtExceptionHandler {
      *
      * @return 单例
      */
-    public static XCrashHandlerUtils getInstance() {
+    public static CrashHandlerUtils getInstance() {
         return INSTANCE;
     }
 
@@ -75,7 +75,7 @@ public class XCrashHandlerUtils implements Thread.UncaughtExceptionHandler {
             e.printStackTrace();
         }
         //退出程序
-        XActivityStack.getInstance().appExit();
+        ActivityStackManager.getInstance().appExit();
     }
 
     /**
@@ -122,16 +122,16 @@ public class XCrashHandlerUtils implements Thread.UncaughtExceptionHandler {
                 infos.put("versionCode", versionCode);
             }
         } catch (PackageManager.NameNotFoundException e) {
-            XPrintUtils.e("an adapter_loading_error occured when collect package info --> " + e);
+            LogUtils.e("an adapter_loading_error occured when collect package info --> " + e);
         }
         Field[] fields = Build.class.getDeclaredFields();
         for (Field field : fields) {
             try {
                 field.setAccessible(true);
                 infos.put(field.getName(), field.get(null).toString());
-                XPrintUtils.d(field.getName() + " : " + field.get(null));
+                LogUtils.d(field.getName() + " : " + field.get(null));
             } catch (Exception e) {
-                XPrintUtils.e("an adapter_loading_error occured when collect crash info --> " + e);
+                LogUtils.e("an adapter_loading_error occured when collect crash info --> " + e);
             }
         }
     }
@@ -163,10 +163,10 @@ public class XCrashHandlerUtils implements Thread.UncaughtExceptionHandler {
         sb.append(result);
         try {
             long timestamp = System.currentTimeMillis();
-            String fileName = "crash-" + XDateUtils.getCurrentDate() + "-" + timestamp + ".XPrintUtils";
+            String fileName = "crash-" + DateUtils.getCurrentDate() + "-" + timestamp + ".XPrintUtils";
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                 String path = Environment.getExternalStorageDirectory().getPath() + "/crash/";
-                XPrintUtils.d("path=" + path);
+                LogUtils.d("path=" + path);
                 File dir = new File(path);
                 if (!dir.exists()) {
                     dir.mkdirs();
@@ -177,7 +177,7 @@ public class XCrashHandlerUtils implements Thread.UncaughtExceptionHandler {
             }
             return fileName;
         } catch (Exception e) {
-            XPrintUtils.e("an adapter_loading_error occured while writing file... --> " + e);
+            LogUtils.e("an adapter_loading_error occured while writing file... --> " + e);
         }
         return null;
     }

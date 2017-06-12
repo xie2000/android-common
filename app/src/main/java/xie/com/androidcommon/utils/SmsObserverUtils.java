@@ -22,14 +22,14 @@ import java.util.regex.Pattern;
  需要权限
  <uses-permission android:name="android.permission.READ_SMS" />
  */
-public class XSmsObserver  extends ContentObserver {
+public class SmsObserverUtils extends ContentObserver {
     public static final String SMS_URI_INBOX = "content://sms/inbox";
     private Activity activity = null;
     private String smsContent = "";
     private SmsListener listener;
     private String like;
 
-    public XSmsObserver(Activity activity, Handler handler, String like, SmsListener listener) {
+    public SmsObserverUtils(Activity activity, Handler handler, String like, SmsListener listener) {
         super(handler);
         this.activity = activity;
         this.listener = listener;

@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * 权限
  */
-public class XPermission {
+public class PermissionUtils {
     private static int mRequestCode = -1;
 
     private static OnPermissionListener mOnPermissionListener;

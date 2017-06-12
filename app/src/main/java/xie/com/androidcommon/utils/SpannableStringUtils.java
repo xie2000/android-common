@@ -36,7 +36,7 @@ import xie.com.androidcommon.MyApplication;
 import static android.graphics.BlurMaskFilter.Blur;
 
 
-public class XSpannableStringUtils {
+public class SpannableStringUtils {
     /**
      * 获取建造者
      *

@@ -21,7 +21,14 @@ import static android.content.ContentValues.TAG;
 /**
  * 应用工具类.
  */
-public class DeviceUtils {
+public class AppUtils {
+    /**
+     * 获取应用程序名称
+     */
+    public static String getAppName(Context context) {
+        return context.getResources().getString(getPackageInfo().applicationInfo.labelRes);
+    }
+
     /**
      * 获取手机固件版本号(整型)
      *
@@ -173,6 +180,7 @@ public class DeviceUtils {
      * 生成一个设备指纹（耗时50毫秒以内）：
      * 1.IMEI + 设备硬件信息（主要）+ ANDROID_ID + WIFI MAC组合成的字符串
      * 2.用MessageDigest将以上字符串处理成32位的16进制字符串
+     *
      * @return 设备指纹
      */
     public static String createFingerprint() {

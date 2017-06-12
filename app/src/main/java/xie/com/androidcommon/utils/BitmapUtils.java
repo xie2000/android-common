@@ -63,7 +63,7 @@ public class BitmapUtils {
     public static Drawable getDrawable(int resId) {
         Drawable drawable = null;
         try {
-            drawable = XOutdatedUtils.getDrawable(resId);
+            drawable = OutdatedUtils.getDrawable(resId);
         } catch (OutOfMemoryError e) {
             e.printStackTrace();
         }

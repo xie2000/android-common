@@ -4,7 +4,7 @@ package xie.com.androidcommon.utils;
  * 用来计算显示的时间是多久之前的！
  */
 
-public class XFormatTimeUtils {
+public class FormatTimeUtils {
     /**
      * 格式化友好的时间差显示方式
      *
@@ -16,20 +16,20 @@ public class XFormatTimeUtils {
         long span = now - millis;
         if (span < 1000) {
             return "刚刚";
-        }else if (span < XDateUtils.MIN) {
-            return String.format("%d秒前", span /  XDateUtils.SEC);
-        }else if (span <  XDateUtils.HOUR) {
-            return String.format("%d分钟前", span /  XDateUtils.MIN);
-        }else if (span < XDateUtils.DAY) {
-            return String.format("%d小时前", span /  XDateUtils.HOUR);
-        }else if (span < XDateUtils.WEEK) {
-            return String.format("%d天前", span /  XDateUtils.DAY);
-        }else if (span < XDateUtils.MONTH) {
-            return String.format("%d周前", span /  XDateUtils.WEEK);
-        }else if (span < XDateUtils.YEAR) {
-            return String.format("%d月前", span /  XDateUtils.MONTH);
+        }else if (span < DateUtils.MIN) {
+            return String.format("%d秒前", span /  DateUtils.SEC);
+        }else if (span <  DateUtils.HOUR) {
+            return String.format("%d分钟前", span /  DateUtils.MIN);
+        }else if (span < DateUtils.DAY) {
+            return String.format("%d小时前", span /  DateUtils.HOUR);
+        }else if (span < DateUtils.WEEK) {
+            return String.format("%d天前", span /  DateUtils.DAY);
+        }else if (span < DateUtils.MONTH) {
+            return String.format("%d周前", span /  DateUtils.WEEK);
+        }else if (span < DateUtils.YEAR) {
+            return String.format("%d月前", span /  DateUtils.MONTH);
         }else {
-            return String.format("%d年前", span /  XDateUtils.YEAR);
+            return String.format("%d年前", span /  DateUtils.YEAR);
         }
     }
 
@@ -43,9 +43,9 @@ public class XFormatTimeUtils {
     public static String getTimeSpanByNow2(long millis) {
         long now = System.currentTimeMillis();
         long span = now - millis;
-        long day = span /XDateUtils.DAY;
+        long day = span / DateUtils.DAY;
         if (day == 0) {// 今天
-            long hour=span/XDateUtils.HOUR;
+            long hour=span/ DateUtils.HOUR;
             if(hour <=4){
                 return String.format("凌晨%tR", millis);
             }else if(hour >4 && hour <=6){
