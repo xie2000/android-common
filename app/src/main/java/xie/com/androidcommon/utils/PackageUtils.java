@@ -4,12 +4,16 @@ import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
 import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -19,6 +23,7 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import xie.com.androidcommon.MyApplication;
 
@@ -27,13 +32,17 @@ import xie.com.androidcommon.MyApplication;
  * 应用包工具类
  */
 public class PackageUtils {
+    public static final int APP_INSTALL_AUTO = 0;
+    public static final int APP_INSTALL_INTERNAL = 1;
+    public static final int APP_INSTALL_EXTERNAL = 2;
+
     /**
      * 检查指定包是否已安装
      *
      * @param context     系统变量
      * @param packageName 包名
      */
-    public static boolean isAppInstalled(Context context, String packageName) {
+    public static boolean isInstalled(Context context, String packageName) {
         if (context == null || TextUtils.isEmpty(packageName)) {
             return false;
         }
@@ -53,13 +62,19 @@ public class PackageUtils {
     /**
      * 安装APk
      */
-    public static void installApk(String path) {
-        Intent intent = new Intent();
+    public static boolean installApk(String path) {
+        File file = new File(path);
+        if (file == null || !file.exists() || !file.isFile() || file.length() <= 0) {
+            return false;
+        }
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setAction(Intent.ACTION_VIEW);
-        // 设置数据类型
-        intent.setDataAndType(Uri.fromFile(new File(path)), "application/vnd.android.package-archive");
+        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        //intent.setDataAndType(Uri.parse("file://" + filePath), "application/vnd.android.package-archive");
         MyApplication.getInstance().startActivity(intent);
+
+        return true;
     }
 
     /**
@@ -99,7 +114,7 @@ public class PackageUtils {
     }
 
     /**
-     * 描述: 打开App
+     * 启动应用
      *
      * @param packageName 包名
      */
@@ -109,6 +124,49 @@ public class PackageUtils {
         }
 
         MyApplication.getInstance().startActivity(MyApplication.getInstance().getPackageManager().getLaunchIntentForPackage(packageName));
+    }
+
+    /**
+     * 启动应用
+     */
+    public static boolean startAppByPackageName(Context context, String packageName, Map<String, String> param) {
+        android.content.pm.PackageInfo pi = null;
+        try {
+            pi = context.getPackageManager().getPackageInfo(packageName, 0);
+            Intent resolveIntent = new Intent(Intent.ACTION_MAIN, null);
+            resolveIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+                resolveIntent.setPackage(pi.packageName);
+            }
+
+            List<ResolveInfo> apps = context.getPackageManager().queryIntentActivities(resolveIntent, 0);
+
+            ResolveInfo ri = apps.iterator().next();
+            if (ri != null) {
+                String packageName1 = ri.activityInfo.packageName;
+                String className = ri.activityInfo.name;
+
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+
+                ComponentName cn = new ComponentName(packageName1, className);
+
+                intent.setComponent(cn);
+                if (param != null) {
+                    for (Map.Entry<String, String> en : param.entrySet()) {
+                        intent.putExtra(en.getKey(), en.getValue());
+                    }
+                }
+                context.startActivity(intent);
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(context.getApplicationContext(), "启动失败",
+                    Toast.LENGTH_LONG).show();
+        }
+        return false;
     }
 
     /**
@@ -277,6 +335,72 @@ public class PackageUtils {
         diff = (diff != 0) ? diff : versionArray1.length - versionArray2.length;
         return diff;
     }
+
+    /**
+     * 是否为系统应用
+     *
+     * @param packageName
+     * @return
+     */
+    public static boolean isSystemApplication(String packageName) {
+        ApplicationInfo app = null;
+        try {
+            app = MyApplication.getInstance().getPackageManager().getApplicationInfo(packageName, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return (app != null && (app.flags & ApplicationInfo.FLAG_SYSTEM) > 0);
+    }
+
+    /**
+     * 调用系统分享
+     */
+    public static void shareToOtherApp(Context context, String title, String content, String dialogTitle) {
+        Intent intentItem = new Intent(Intent.ACTION_SEND);
+        intentItem.setType("text/plain");
+        intentItem.putExtra(Intent.EXTRA_SUBJECT, title);
+        intentItem.putExtra(Intent.EXTRA_TEXT, content);
+        intentItem.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(Intent.createChooser(intentItem, dialogTitle));
+    }
+
+    /**
+     * 打开已安装应用的详情
+     */
+    public static void goToInstalledAppDetails(Context context, String packageName) {
+        Intent intent = new Intent();
+        int sdkVersion = Build.VERSION.SDK_INT;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.setData(Uri.fromParts("package", packageName, null));
+        } else {
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
+            intent.putExtra((sdkVersion == Build.VERSION_CODES.FROYO ? "pkg"
+                    : "com.android.settings.ApplicationPkgName"), packageName);
+        }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 获取当前系统安装应用的默认位置
+     *
+     * @return APP_INSTALL_AUTO or APP_INSTALL_INTERNAL or APP_INSTALL_EXTERNAL.
+     */
+    public static int getInstallLocation() {
+        ShellUtil.CommandResult commandResult = ShellUtil.execCommand(
+                "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm get-install-location", false, true);
+        if (commandResult.result == 0 && commandResult.responseMsg != null && commandResult.responseMsg.length() > 0) {
+            try {
+                return Integer.parseInt(commandResult.responseMsg.substring(0, 1));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+        return APP_INSTALL_AUTO;
+    }
+
 
 //    /**
 //     * 收起状态栏

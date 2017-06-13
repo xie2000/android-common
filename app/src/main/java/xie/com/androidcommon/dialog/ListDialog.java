@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import xie.com.androidcommon.R;
 import xie.com.androidcommon.utils.ResUtils;
+import xie.com.androidcommon.utils.ScreenUtils;
 
 /**
  * @类说明:列表对话框
@@ -55,7 +56,7 @@ public class ListDialog {
         context.getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         // 设置Dialog最小宽度为屏幕宽度
-        view.setMinimumWidth(ResUtils.getScreenWidth());
+        view.setMinimumWidth(ScreenUtils.getScreenWidth());
 
         // 获取自定义Dialog布局中的控件
         sLayout_content = (ScrollView) view.findViewById(R.id.scrollview_content);
@@ -124,7 +125,7 @@ public class ListDialog {
         // 添加条目过多的时候控制高度
         if (size >= 7) {
             LinearLayout.LayoutParams params = (LayoutParams) sLayout_content.getLayoutParams();
-            params.height = ResUtils.getScreenHeight() / 2;
+            params.height = ScreenUtils.getScreenHeight() / 2;
             sLayout_content.setLayoutParams(params);
         }
 

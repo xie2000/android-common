@@ -61,7 +61,6 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         }
     }
 
-
     private class ListAdapter extends BaseAdapter {
         private ArrayList<String> list;
 

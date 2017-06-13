@@ -13,7 +13,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import xie.com.androidcommon.R;
-import xie.com.androidcommon.utils.ResUtils;
+import xie.com.androidcommon.utils.ScreenUtils;
 import xie.com.androidcommon.utils.Utils;
 
 
@@ -85,7 +85,7 @@ public class CustomDialog implements OnClickListener {
         dialog.setContentView(view);
 
         // 调整dialog背景大小
-        lLayout_bg.setLayoutParams(new FrameLayout.LayoutParams((int) (ResUtils.getScreenWidth() * Utils.DIALOG_WIDTH_SCALE), LayoutParams.WRAP_CONTENT));
+        lLayout_bg.setLayoutParams(new FrameLayout.LayoutParams((int) (ScreenUtils.getScreenWidth() * Utils.DIALOG_WIDTH_SCALE), LayoutParams.WRAP_CONTENT));
     }
 
     public CustomDialog setCustomTitle(String title) {

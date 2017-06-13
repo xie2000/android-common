@@ -28,22 +28,18 @@ public class ScreenUtils
 {
 	/**
 	 * 获得屏幕高度
-	 * 
-	 * @param context
 	 * @return
 	 */
-	public static int getScreenWidth(Context context)
+	public static int getScreenWidth()
 	{
 		return MyApplication.getDisplayMetrics().widthPixels;
 	}
 
 	/**
 	 * 获得屏幕宽度
-	 * 
-	 * @param context
 	 * @return
 	 */
-	public static int getScreenHeight(Context context)
+	public static int getScreenHeight()
 	{
 		return MyApplication.getDisplayMetrics().heightPixels;
 	}
@@ -229,8 +225,8 @@ public class ScreenUtils
 		view.setDrawingCacheEnabled(true);
 		view.buildDrawingCache();
 		Bitmap bmp = view.getDrawingCache();
-		int width = getScreenWidth(activity);
-		int height = getScreenHeight(activity);
+		int width = getScreenWidth();
+		int height = getScreenHeight();
 		Bitmap bp = null;
 		bp = Bitmap.createBitmap(bmp, 0, 0, width, height);
 		view.destroyDrawingCache();
@@ -254,8 +250,8 @@ public class ScreenUtils
 		activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
 		int statusBarHeight = frame.top;
 
-		int width = getScreenWidth(activity);
-		int height = getScreenHeight(activity);
+		int width = getScreenWidth();
+		int height = getScreenHeight();
 		Bitmap bp = null;
 		bp = Bitmap.createBitmap(bmp, 0, statusBarHeight, width, height
 				- statusBarHeight);
